@@ -6,3 +6,6 @@ From tips on Nutrition to Contacting a doctor, our website is a one stop solutio
 2. Get latest sports news
 3. Find your bag of motivation
 4. Find the hospitals near your area using HERE maps API
+
+- Find the demo here
+ https://jovial-saha-703015.netlify.app/
