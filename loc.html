@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The XMLHttpRequest Object</h1>
+
+<button type="button" onclick="loadDoc()">Request data</button>
+
+<p id="demo"></p>
+
+<script>
+var pos;
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //document.getElementById("demo").innerHTML = this.responseText;
+      pos = this.responseText;
+      console.log(this.responseText);
+    }
+  };
+  xhttp.open("GET", "https://geocode.search.hereapi.com/v1/geocode?q=cheema%20nagar%20Jalandhar&apiKey=YkG1qPTKOi4ym5EcdHEBz68TpeNmHI-I9eDj2liqeqE", true);
+  xhttp.send();
+  console.log(pos);
+}
+</script>
+ 
+</body>
+</html>
