@@ -4,25 +4,90 @@
 
 <h1>The XMLHttpRequest Object</h1>
 
-<button type="button" onclick="loadDoc()">Request data</button>
+    <label for="fname">City</label>
+    <input type="text" id="city"><br><br>
+    <label for="lname">Area</label>
+    <input type="text" id="area"><br><br>
+    <button type="button" onclick="fetchText()">Request data</button>
+    <!--<input type="submit" value="Submit">-->
+
+
+
 
 <p id="demo"></p>
 
 <script>
+
+    async function fetchText() {
+            var area = (document.getElementById("area").value);
+            var city = (document.getElementById("city").value);
+            var URL = "https://geocode.search.hereapi.com/v1/geocode?q=" + area + "%20" + city + "&apiKey=YkG1qPTKOi4ym5EcdHEBz68TpeNmHI-I9eDj2liqeqE";   
+            console.log(URL);
+            var response = await fetch(URL);
+            var data = await response.text();
+            data = JSON.parse(data);
+            data = data.items;
+            pos = data[0].position;
+            var lat = pos.lat;
+            var lng = pos.lng;
+            /*var p = lat + "," + lng;
+            async function getData(lat, lng) {
+                var near = "https://discover.search.hereapi.com/v1/discover?at=" + p + "&q=petrol+station&lang=en-U&apiKey=YkG1qPTKOi4ym5EcdHEBz68TpeNmHI-I9eDj2liqeqE";
+                console.log(near);
+                var resp = await fetch(near);
+                var dat = await resp.text();
+                console.log(dat);
+                
+            }*/
+            getData(lat, lng);
+    }
+
+            async function getData(lat, lng) {
+                var p = lat + "," + lng;
+                var near = "https://discover.search.hereapi.com/v1/discover?at=" + p + "&q=hospital&lang=en-U&apiKey=YkG1qPTKOi4ym5EcdHEBz68TpeNmHI-I9eDj2liqeqE";
+                console.log(near);
+                var resp = await fetch(near);
+                var dat = await resp.text();
+                dat = JSON.parse(dat);
+                dat = dat.items;
+                for (var i = 0; i < 10 ; i++){
+                    //console.log(dat[i]);
+                    var content = dat[i];
+                    console.log(content.title);
+                    console.log(content.distance);
+                    console.log(content.address.label);
+                }
+
+            }
+
+/*
 var pos;
 function loadDoc() {
+  var area = (document.getElementById("area").value);
+  var city = (document.getElementById("city").value);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      //document.getElementById("demo").innerHTML = this.responseText;
-      pos = this.responseText;
-      console.log(this.responseText);
+      //pos = this.responseText;
+      var data = JSON.parse(this.responseText);
+      console.log(data.items);
+      pos = data.items;
+      //console.log(pos[0]);
+      console.log(pos[0].position);
+      //console.log(data.position);
+        //console.log(this.responseText);
     }
   };
-  xhttp.open("GET", "https://geocode.search.hereapi.com/v1/geocode?q=cheema%20nagar%20Jalandhar&apiKey=YkG1qPTKOi4ym5EcdHEBz68TpeNmHI-I9eDj2liqeqE", true);
+  var area = document.getElementById("area").innerText;
+  var city = document.getElementById("city").innerText;
+  console.log(area);
+  console.log(city);
+i  var URL = "https://geocode.search.hereapi.com/v1/geocode?q=" + area + "%20" + city + "&apiKey=YkG1qPTKOi4ym5EcdHEBz68TpeNmHI-I9eDj2liqeqE"   
+  console.log(URL);
+  xhttp.open("GET", URL , true);
   xhttp.send();
-  console.log(pos);
-}
+  console.log(data["position"]);
+}*/
 </script>
  
 </body>
